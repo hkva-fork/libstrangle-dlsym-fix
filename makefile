@@ -1,6 +1,6 @@
 CC=gcc
-INC=-Isrc
-CFLAGS=-rdynamic -fPIC -shared -Wall -std=c99 -fvisibility=hidden $(INC)
+STRANGLE_GL_FLAGS=-Isrc -rdynamic -fPIC -shared -std=c99 -fvisibility=hidden
+CFLAGS=-Wall
 LDFLAGS=-Wl,-z,relro,-z,now
 LDLIBS=-ldl -lrt -lc
 
@@ -18,7 +18,8 @@ COMMON_SOURCES=$(wildcard $(SOURCEDIR)/*.c)
 GL_SOURCES=$(COMMON_SOURCES) $(wildcard $(SOURCEDIR)/opengl/*.c)
 
 CXX=g++
-CXXFLAGS= -pthread -rdynamic -fPIC -shared -Wall -std=gnu++17 -fvisibility=hidden -Iinclude $(INC) -DVK_USE_PLATFORM_XLIB_KHR -DHAVE_PTHREAD -DHAVE_TIMESPEC_GET
+STRANGLE_VULKAN_FLAGS=-pthread -rdynamic -fPIC -shared -std=gnu++17 -fvisibility=hidden -Iinclude -Isrc -DVK_USE_PLATFORM_XLIB_KHR -DHAVE_PTHREAD -DHAVE_TIMESPEC_GET
+CXXFLAGS=-Wall
 LDXXFLAGS=
 LDXXLIBS=-lrt
 VK_SOURCES=\
@@ -55,31 +56,31 @@ $(BUILDDIR)/libstrangle.conf: | $(BUILDDIR)
 	@echo "$(LIB64_PATH)/" >> $(BUILDDIR)/libstrangle.conf
 
 $(BUILDDIR)/libstrangle64.so: | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -m64 -o $@ $(GL_SOURCES) $(LDLIBS) -DHOOK_DLSYM
+	$(CC) $(STRANGLE_GL_FLAGS) $(CFLAGS) $(LDFLAGS) -m64 -o $@ $(GL_SOURCES) $(LDLIBS) -DHOOK_DLSYM
 
 $(BUILDDIR)/libstrangle32.so: | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -m32 -o $@ $(GL_SOURCES) $(LDLIBS) -DHOOK_DLSYM
+	$(CC) $(STRANGLE_GL_FLAGS) $(CFLAGS) $(LDFLAGS) -m32 -o $@ $(GL_SOURCES) $(LDLIBS) -DHOOK_DLSYM
 
 $(BUILDDIR)/libstrangle64_nodlsym.so: | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -m64 -o $@ $(GL_SOURCES) $(LDLIBS)
+	$(CC) $(STRANGLE_GL_FLAGS) $(CFLAGS) $(LDFLAGS) -m64 -o $@ $(GL_SOURCES) $(LDLIBS)
 
 $(BUILDDIR)/libstrangle32_nodlsym.so: | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -m32 -o $@ $(GL_SOURCES) $(LDLIBS)
+	$(CC) $(STRANGLE_GL_FLAGS) $(CFLAGS) $(LDFLAGS) -m32 -o $@ $(GL_SOURCES) $(LDLIBS)
 
 $(BUILDDIR)/libstrangle_vk64.so: | $(BUILDDIR)
-	$(CXX) $(CXXFLAGS) $(LDXXFLAGS) -m64 -o $@ $(VK_SOURCES) $(LDXXLIBS)
+	$(CXX) $(STRANGLE_VULKAN_FLAGS) $(CXXFLAGS) $(LDXXFLAGS) -m64 -o $@ $(VK_SOURCES) $(LDXXLIBS)
 
 $(BUILDDIR)/libstrangle_vk32.so: | $(BUILDDIR)
-	$(CXX) $(CXXFLAGS) $(LDXXFLAGS) -m32 -o $@ $(VK_SOURCES) $(LDXXLIBS)
+	$(CXX) $(STRANGLE_VULKAN_FLAGS) $(CXXFLAGS) $(LDXXFLAGS) -m32 -o $@ $(VK_SOURCES) $(LDXXLIBS)
 
 $(BUILDDIR)/libstrangle_native.so: | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(GL_SOURCES) $(LDLIBS) -DHOOK_DLSYM
+	$(CC) $(STRANGLE_GL_FLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $(GL_SOURCES) $(LDLIBS) -DHOOK_DLSYM
 
 $(BUILDDIR)/libstrangle_native_nodlsym.so: | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(LDFLAGS) -o $@ $(GL_SOURCES) $(LDLIBS)
+	$(CC) $(STRANGLE_GL_FLAGS) $(CFLAGS) $(LDFLAGS) -o $@ $(GL_SOURCES) $(LDLIBS)
 
 $(BUILDDIR)/libstrangle_vk_native.so: | $(BUILDDIR)
-	$(CXX) $(CXXFLAGS) $(LDXXFLAGS) -o $@ $(VK_SOURCES) $(LDXXLIBS)
+	$(CXX) $(STRANGLE_VULKAN_FLAGS) $(CXXFLAGS) $(LDXXFLAGS) -o $@ $(VK_SOURCES) $(LDXXLIBS)
 
 install-common:
 	install -m 0755 -D -T $(SOURCEDIR)/strangle.sh $(DESTDIR)$(bindir)/strangle
