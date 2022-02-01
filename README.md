@@ -80,8 +80,6 @@ Strangle can also be controlled with the following environment variables:
 | ENABLE_VK_LAYER_TORKEL104_libstrangle  | 0 or 1 | Enables the implicit Vulkan layer |
 | DISABLE_VK_LAYER_TORKEL104_libstrangle | 0 or 1 | Disables the implicit Vulkan layer |
 ### Experimental stuff
-![Mip map lod bias example](screenshots/picmip_quake.png)*vkQuake with `STRANGLE_PICMIP=1337`*
-
 You can adjust the mipmap lod bias in both opengl and vulkan with the environment variable `STRANGLE_PICMIP`. A higher value means blurrier textures. A negative value could make textures crisper.
 ## Notice
 Might crash if used together with other libs that hijack dlsym, such as Steam Overlay. It seems to work with Steam Overlay when placed at the end of LD_PRELOAD for some reason.
