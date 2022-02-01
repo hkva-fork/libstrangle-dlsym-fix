@@ -31,7 +31,7 @@
 
 #include <vulkan/vulkan.h>
 #include <vulkan/vk_layer.h>
-#include <vulkan/vk_util.h>
+#include "vk_util.h"
 #include "vk_enum_to_str.h"
 
 #include "mesa/util/macros.h"

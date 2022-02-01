@@ -26,7 +26,6 @@
     #define MESA_VK_ENUM_TO_STR_H
 
     #include <vulkan/vulkan.h>
-    #include <vulkan/vk_android_native_buffer.h>
 
     #ifdef __cplusplus
     extern "C" {
@@ -53,7 +52,7 @@
     #define _VK_AMD_shader_info_number (43)
     #define _VK_AMD_shader_trinary_minmax_number (21)
     #define _VK_AMD_texture_gather_bias_lod_number (42)
-    #define _VK_ANDROID_external_memory_android_hardware_buffer_number (130)
+
     #define _VK_EXT_acquire_xlib_display_number (90)
     #define _VK_EXT_astc_decode_mode_number (68)
     #define _VK_EXT_blend_operation_advanced_number (149)
@@ -125,7 +124,6 @@
     #define _VK_INTEL_shader_integer_functions2_number (210)
     #define _VK_KHR_16bit_storage_number (84)
     #define _VK_KHR_8bit_storage_number (178)
-    #define _VK_KHR_android_surface_number (9)
     #define _VK_KHR_bind_memory2_number (158)
     #define _VK_KHR_buffer_device_address_number (258)
     #define _VK_KHR_create_renderpass2_number (110)
@@ -326,9 +324,7 @@
     #ifdef VK_USE_PLATFORM_XLIB_XRANDR_EXT
         PFN_vkAcquireXlibDisplayEXT AcquireXlibDisplayEXT;
     #endif
-    #ifdef VK_USE_PLATFORM_ANDROID_KHR
-        PFN_vkCreateAndroidSurfaceKHR CreateAndroidSurfaceKHR;
-    #endif
+
         PFN_vkCreateDebugReportCallbackEXT CreateDebugReportCallbackEXT;
         PFN_vkCreateDebugUtilsMessengerEXT CreateDebugUtilsMessengerEXT;
         PFN_vkCreateDevice CreateDevice;
@@ -448,7 +444,7 @@
     #ifdef VK_USE_PLATFORM_WIN32_KHR
         PFN_vkAcquireFullScreenExclusiveModeEXT AcquireFullScreenExclusiveModeEXT;
     #endif
-        PFN_vkAcquireImageANDROID AcquireImageANDROID;
+
         PFN_vkAcquireNextImage2KHR AcquireNextImage2KHR;
         PFN_vkAcquireNextImageKHR AcquireNextImageKHR;
         PFN_vkAcquirePerformanceConfigurationINTEL AcquirePerformanceConfigurationINTEL;
@@ -618,9 +614,6 @@
         PFN_vkFreeMemory FreeMemory;
         PFN_vkGetAccelerationStructureHandleNV GetAccelerationStructureHandleNV;
         PFN_vkGetAccelerationStructureMemoryRequirementsNV GetAccelerationStructureMemoryRequirementsNV;
-    #ifdef VK_USE_PLATFORM_ANDROID_KHR
-        PFN_vkGetAndroidHardwareBufferPropertiesANDROID GetAndroidHardwareBufferPropertiesANDROID;
-    #endif
         PFN_vkGetBufferDeviceAddress GetBufferDeviceAddress;
         PFN_vkGetBufferMemoryRequirements GetBufferMemoryRequirements;
         PFN_vkGetBufferMemoryRequirements2 GetBufferMemoryRequirements2;
@@ -650,9 +643,6 @@
         PFN_vkGetImageSparseMemoryRequirements2 GetImageSparseMemoryRequirements2;
         PFN_vkGetImageSubresourceLayout GetImageSubresourceLayout;
         PFN_vkGetImageViewHandleNVX GetImageViewHandleNVX;
-    #ifdef VK_USE_PLATFORM_ANDROID_KHR
-        PFN_vkGetMemoryAndroidHardwareBufferANDROID GetMemoryAndroidHardwareBufferANDROID;
-    #endif
         PFN_vkGetMemoryFdKHR GetMemoryFdKHR;
         PFN_vkGetMemoryFdPropertiesKHR GetMemoryFdPropertiesKHR;
         PFN_vkGetMemoryHostPointerPropertiesEXT GetMemoryHostPointerPropertiesEXT;
@@ -683,8 +673,8 @@
     #endif
         PFN_vkGetShaderInfoAMD GetShaderInfoAMD;
         PFN_vkGetSwapchainCounterEXT GetSwapchainCounterEXT;
-        PFN_vkGetSwapchainGrallocUsage2ANDROID GetSwapchainGrallocUsage2ANDROID;
-        PFN_vkGetSwapchainGrallocUsageANDROID GetSwapchainGrallocUsageANDROID;
+
+
         PFN_vkGetSwapchainImagesKHR GetSwapchainImagesKHR;
         PFN_vkGetSwapchainStatusKHR GetSwapchainStatusKHR;
         PFN_vkGetValidationCacheDataEXT GetValidationCacheDataEXT;
@@ -707,7 +697,7 @@
         PFN_vkQueueInsertDebugUtilsLabelEXT QueueInsertDebugUtilsLabelEXT;
         PFN_vkQueuePresentKHR QueuePresentKHR;
         PFN_vkQueueSetPerformanceConfigurationINTEL QueueSetPerformanceConfigurationINTEL;
-        PFN_vkQueueSignalReleaseImageANDROID QueueSignalReleaseImageANDROID;
+
         PFN_vkQueueSubmit QueueSubmit;
         PFN_vkQueueWaitIdle QueueWaitIdle;
         PFN_vkRegisterDeviceEventEXT RegisterDeviceEventEXT;
