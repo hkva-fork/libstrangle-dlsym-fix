@@ -19,7 +19,8 @@ along with libstrangle.  If not, see <http://www.gnu.org/licenses/>.
 
 #define _GNU_SOURCE
 
-#include "real_dlsym.h"
+// HK: Workaround for newer libc builds not having a DT_HASH section
+#define DLSYM_LOOK_UP_NAME
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -29,6 +30,14 @@ along with libstrangle.  If not, see <http://www.gnu.org/licenses/>.
 #include <link.h>
 
 static void *(*the_real_dlsym)( void*, const char* ) = NULL;
+
+#ifdef DLSYM_LOOK_UP_NAME
+
+#include "find-dlsym.h"
+
+#else
+
+#include "real_dlsym.h"
 
 typedef struct {
 	ElfW(Word) nbucket;
@@ -149,6 +158,8 @@ static void* find_dlsym() {
 	dl_iterate_phdr(callback, NULL);
 	return the_real_dlsym;
 }
+
+#endif
 
 void* real_dlsym( void* handle, const char* name )
 {
